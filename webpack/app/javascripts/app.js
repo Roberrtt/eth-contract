@@ -7,9 +7,11 @@ import { default as contract } from 'truffle-contract'
 
 // Import our contract artifacts and turn them into usable abstractions.
 import metacoin_artifacts from '../../build/contracts/MetaCoin.json'
+import love_artifacts from '../../build/contracts/TokenERC20.json'
 
 // MetaCoin is our usable abstraction, which we'll use through the code below.
 var MetaCoin = contract(metacoin_artifacts);
+var Love = contract(love_artifacts);
 
 // The following code is simple to show off interacting with your contracts.
 // As your needs grow you will likely need to change its form and structure.
@@ -23,6 +25,7 @@ window.App = {
 
     // Bootstrap the MetaCoin abstraction for Use.
     MetaCoin.setProvider(web3.currentProvider);
+    Love.setProvider(web3.currentProvider);
 
     // Get the initial account balance so it can be displayed.
     web3.eth.getAccounts(function(err, accs) {
