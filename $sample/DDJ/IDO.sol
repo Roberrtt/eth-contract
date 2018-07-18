@@ -2,6 +2,7 @@
 // 名字: iOTC Dollar
 // 简写: IDO
 // 地址: 0x92E99546DA27e86A07247CfA802599b96B6E7F28
+// 0xE8e8BE808416C3C5f386DBaE034B0ecEE7F4Be98
 
 pragma solidity ^0.4.4;
 
