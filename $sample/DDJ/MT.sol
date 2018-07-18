@@ -1,8 +1,5 @@
 
 //  名字  MT Token  币名 MT  总量 40亿   打币地址  0xC23b837d8999f95e39173e0cbAa9DD51E1C8Fc03  
-// 钱包秘钥： gesture now during solve teach holiday chicken injury same derive law chaos
-//  yunfeng123456 
-
 // 合约地址 0x9b4e2B4B13d125238Aa0480dD42B4f6fC71b37CC 
 // 40,0000,0000  9 + 18 = 27    4*10**27
 
