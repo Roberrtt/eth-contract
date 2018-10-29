@@ -721,8 +721,8 @@ contract Hourglass {
     
     /**
      * Calculate token sell value.
-     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
-     * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;  这是一种算法，希望我们用科学的符号来写白皮书
+     * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.  出现了一些转换，以防止十进制错误或实性代码中的欠流/溢出
      */
      function tokensToEthereum_(uint256 _tokens)
         internal
