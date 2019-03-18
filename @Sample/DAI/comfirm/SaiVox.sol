@@ -1,6 +1,5 @@
-// Maker3 0x9B0F70Df76165442ca6092939132bBAEA77f2d7A  SaiVox
-
 // hevm: flattened sources of src/vox.sol
+// 0x9B0F70Df76165442ca6092939132bBAEA77f2d7A  v0.4.19+commit.c4cbbb05
 pragma solidity ^0.4.18;
 
 ////// lib/ds-guard/lib/ds-auth/src/auth.sol

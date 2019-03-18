@@ -1,3 +1,4 @@
+// 0x526af336D614adE5cc252A407062B8861aF998F5  v0.4.25+commit.59dbf8f1
 pragma solidity ^0.4.23;
 
 /// math.sol -- mixin for inline numerical wizardry
@@ -15,7 +16,7 @@ pragma solidity ^0.4.23;
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity ^0.4.13;
+// pragma solidity ^0.4.13;
 
 contract DSMath {
     function add(uint x, uint y) internal pure returns (uint z) {

@@ -1,6 +1,5 @@
-// Maker1 0x448a5065aeBB8E423F0896E6c5D525C040f59af3  v0.4.19+commit.c4cbbb05
-
 // hevm: flattened sources of src/tub.sol
+// 0x448a5065aeBB8E423F0896E6c5D525C040f59af3  v0.4.19+commit.c4cbbb05
 pragma solidity ^0.4.18;
 
 ////// lib/ds-guard/lib/ds-auth/src/auth.sol

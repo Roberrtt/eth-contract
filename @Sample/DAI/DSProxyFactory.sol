@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+// 0xA26e15C895EFc0616177B7c1e7270A4C7D51C997   v0.4.23+commit.124ca40d
 pragma solidity ^0.4.23;
 
 contract DSAuthority {

@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+// 0x4678f0a6958e4D2Bc4F1BAF7Bc52E8F3564f3fE4  v0.4.23+commit.124ca40d
 pragma solidity ^0.4.23;
 
 contract DSAuthority {
@@ -212,5 +213,30 @@ contract DSProxyCache {
         }
         bytes32 hash = keccak256(_code);
         cache[hash] = target;
+    }
+}
+
+// ProxyRegistry
+// This Registry deploys new proxy instances through DSProxyFactory.build(address) and keeps a registry of owner => proxy
+contract ProxyRegistry {
+    mapping(address => DSProxy) public proxies;
+    DSProxyFactory factory;
+
+    constructor(DSProxyFactory factory_) public {
+        factory = factory_;
+    }
+
+    // deploys a new proxy instance
+    // sets owner of proxy to caller
+    function build() public returns (DSProxy proxy) {
+        proxy = build(msg.sender);
+    }
+
+    // deploys a new proxy instance
+    // sets custom owner of proxy
+    function build(address owner) public returns (DSProxy proxy) {
+        require(proxies[owner] == DSProxy(0) || proxies[owner].owner() != owner); // Not allow new proxy if the user already has one and remains being the owner
+        proxy = factory.build(owner);
+        proxies[owner] = proxy;
     }
 }

@@ -1,3 +1,5 @@
+// Dai Stablecoin v1.0 (DAI)
+// 0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359  v0.4.19+commit.c4cbbb05
 pragma solidity ^0.4.13;
 
 ////// lib/ds-math/src/math.sol
