@@ -721,7 +721,7 @@ contract FoMo3Dlong is modularLong {
         if (_now > round_[_rID].strt + rndGap_ && (_now <= round_[_rID].end || (_now > round_[_rID].end && round_[_rID].plyr == 0)))
             return ( (round_[_rID].keys.add(1000000000000000000)).ethRec(1000000000000000000) );  // 1ETH
         else // rounds over.  need price for new round
-            return ( 75000000000000 ); // init
+            return ( 75000000000000 ); // init 0.000075ETH
     }
     
     /**
@@ -1023,14 +1023,14 @@ contract FoMo3Dlong is modularLong {
         }
         
         // if eth left is greater than min eth allowed (sorry no pocket lint)
-        if (_eth > 1000000000) 
+        if (_eth > 1000000000) // 0.000000001 ETH
         {
             
             // mint the new keys  // 创造新的key
             uint256 _keys = (round_[_rID].eth).keysRec(_eth);  // 根据eth计算当前key数量
             
             // if they bought at least 1 whole key
-            if (_keys >= 1000000000000000000)   // 类似1eth  大于一个的时候 更新时间
+            if (_keys >= 1000000000000000000)   //  大于1ETH时 更新时间
             {
                 updateTimer(_keys, _rID);   // 根据key，更新时间
 
@@ -1107,8 +1107,8 @@ contract FoMo3Dlong is modularLong {
             rndTmEth_[_rID][_team] = _eth.add(rndTmEth_[_rID][_team]);
     
             // distribute eth
-            _eventData_ = distributeExternal(_rID, _pID, _eth, _affID, _team, _eventData_);
-            _eventData_ = distributeInternal(_rID, _pID, _eth, _team, _keys, _eventData_);
+            _eventData_ = distributeExternal(_rID, _pID, _eth, _affID, _team, _eventData_);  // 分 外部 fees to com, aff, and p3d
+            _eventData_ = distributeInternal(_rID, _pID, _eth, _team, _keys, _eventData_);   // 分 内部 fees to gen and pot 
             
             // call end tx function to fire end tx event.
 		    endTx(_pID, _team, _eth, _keys, _eventData_);
@@ -1504,11 +1504,11 @@ contract FoMo3Dlong is modularLong {
         uint256 _air = (_eth / 100);
         airDropPot_ = airDropPot_.add(_air);
         
-        // update eth balance (eth = eth - (com share + pot swap share + aff share + p3d share + airdrop pot share))
+        // update eth balance (eth = eth - (com share + pot swap share 1% 底池交换 + aff share 邀请 10% + p3d share + airdrop pot share 1%空投))
         _eth = _eth.sub(((_eth.mul(14)) / 100).add((_eth.mul(fees_[_team].p3d)) / 100));
         
         // calculate pot 
-        uint256 _pot = _eth.sub(_gen);
+        uint256 _pot = _eth.sub(_gen);  // gen = F3D players 本轮  pot = 下一轮底池
         
         // distribute gen share (thats what updateMasks() does) and adjust
         // balances for dust.
@@ -1548,14 +1548,14 @@ contract FoMo3Dlong is modularLong {
         // 这里要理解的最基本的东西 将会有一个基于每股利润的全球跟踪器 每一轮的利润增长与股票供应量的增加相关。
         
         // calc profit per key & round mask based on this buy:  (dust goes to pot)
-        uint256 _ppt = (_gen.mul(1000000000000000000)) / (round_[_rID].keys);
+        uint256 _ppt = (_gen.mul(1000000000000000000)) / (round_[_rID].keys);  // 进入本轮的金池 / 本轮keys = 浮动的单价  
         round_[_rID].mask = _ppt.add(round_[_rID].mask);
-            
+        
         // calculate player earning from their own buy (only based on the keys
         // they just bought).  & update player earnings mask
-        uint256 _pearn = (_ppt.mul(_keys)) / (1000000000000000000);
+        uint256 _pearn = (_ppt.mul(_keys)) / (1000000000000000000);  // 每轮投入的ETH
         plyrRnds_[_pID][_rID].mask = (((round_[_rID].mask.mul(_keys)) / (1000000000000000000)).sub(_pearn)).add(plyrRnds_[_pID][_rID].mask);
-        
+        // 玩家本轮的mask = (本轮mask * 本轮keys 的ETH数) - 每轮投入的ETH + 玩家当前的mask
         // calculate & return dust
         return(_gen.sub((_ppt.mul(round_[_rID].keys)) / (1000000000000000000)));
     }
@@ -1704,17 +1704,17 @@ library F3Ddatasets {
     struct Player {
         address addr;   // player address
         bytes32 name;   // player name
-        uint256 win;    // winnings vault
-        uint256 gen;    // general vault
-        uint256 aff;    // affiliate vault
-        uint256 lrnd;   // last round played
-        uint256 laff;   // last affiliate id used
+        uint256 win;    // winnings vault // 奖金池
+        uint256 gen;    // general vault  // 总金池
+        uint256 aff;    // affiliate vault  // 邀请金池
+        uint256 lrnd;   // last round played  // 最新一轮
+        uint256 laff;   // last affiliate id used  // 最新使用的附属id
     }
     struct PlayerRounds {
         uint256 eth;    // eth player has added to round (used for eth limiter)
-        uint256 keys;   // keys
+        uint256 keys;   // keys 
         uint256 mask;   // player mask 
-        uint256 ico;    // ICO phase investment
+        uint256 ico;    // ICO phase investment  
     }
     struct Round {
         uint256 plyr;   // pID of player in lead
