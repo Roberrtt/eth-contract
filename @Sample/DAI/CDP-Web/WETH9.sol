@@ -13,6 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+// dsethtoken (通过abi中 function event推测)
 // 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2  v0.4.19+commit.c4cbbb05
 pragma solidity ^0.4.18;
 

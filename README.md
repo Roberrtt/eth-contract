@@ -1,4 +1,4 @@
-# Awesome Contract
+# ETH Contract
 
 ### 常用智能合约 ($sample)
 
